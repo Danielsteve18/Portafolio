@@ -1,0 +1,291 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Daniel Steve Montaño Arboleda - Portafolio</title>
+  <link rel="icon" type="image/svg+xml" href="https://www.svgrepo.com/show/325643/briefcase-alt.svg">
+
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <style>
+    body {
+      font-family: 'Inter', sans-serif;
+      scroll-behavior: smooth;
+    }
+    .sidebar {
+      transition: transform 0.3s ease-in-out;
+    }
+    .sidebar-hidden {
+      transform: translateX(-100%);
+    }
+
+    @media (max-width: 768px) {
+      #right-bar {
+        width: 48px;
+        background-color: transparent;
+        border-left: none;
+      }
+      #right-bar a {
+        background-color: transparent !important;
+        justify-content: center;
+      }
+      #right-bar a span {
+        display: none !important;
+      }
+    }
+
+    .project-container {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 20px;
+      justify-content: center;
+    }
+    .card {
+      position: relative;
+      flex: 1 1 50px;
+      max-width: 320px;
+      height: 260px;
+      border-radius: 20px;
+      overflow: hidden;
+      cursor: pointer;
+      transition: all 0.4s ease;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end;
+      background-color: rgba(255, 255, 255, 0.05);
+    }
+    .card:hover {
+      flex: 1 1 320px;
+    }
+    .card-content {
+      position: relative;
+      z-index: 2;
+      padding: 1rem;
+    }
+    .card-content h3 {
+      font-size: 1.2rem;
+      font-weight: bold;
+      margin-bottom: 0.5rem;
+    }
+    .card-content p {
+      font-size: 0.875rem;
+    }
+    .card-content .tech-icons img {
+      display: inline-block;
+      margin-right: 5px;
+      height: 24px;
+    }
+    .github-icon {
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      z-index: 2;
+    }
+  </style>
+</head>
+<body class="bg-black text-white relative">
+  <img src="./resorces/danielFblack.jpeg" class="fixed inset-0 w-full h-full object-cover object-top opacity-10 z-0" alt="Fondo" />
+
+  <!-- Barra lateral derecha -->
+  <aside id="right-bar" class="fixed top-0 right-0 h-full w-16 bg-black border-l border-white flex flex-col items-center justify-center space-y-6 z-40 transition-all duration-300 overflow-hidden hover:w-48 group">
+    <a href="#" class="w-full text-center py-4 hover:bg-orange-500 transition duration-200 text-white">🔧 <span class="hidden group-hover:inline ml-2">Config</span></a>
+    <a href="#" class="w-full text-center py-4 hover:bg-cyan-500 transition duration-200 text-white">📁 <span class="hidden group-hover:inline ml-2">Archivos</span></a>
+    <a href="#" class="w-full text-center py-4 hover:bg-fuchsia-500 transition duration-200 text-white">🧠 <span class="hidden group-hover:inline ml-2">Ideas</span></a>
+  </aside>
+
+  
+  <!-- NAVBAR -->
+  <nav class="fixed top-0 left-0 w-full bg-black bg-opacity-90 border-b z-50">
+    <div class="max-w-7xl mx-auto flex justify-between items-center p-4">
+      <h1 class="text-lg font-bold">Daniel Steve Montaño Arboleda</h1>
+      <div class="hidden md:flex space-x-6">
+        <a href="#inicio" class="hover:underline">Inicio</a>
+        <a href="#habilidades" class="hover:underline">Habilidades</a>
+        <a href="#formacion" class="hover:underline">Formación</a>
+        <a href="#proyectos" class="hover:underline">Proyectos</a>
+        <a href="https://wa.me/573188308916" class="hover:underline">Contacto</a>
+      </div>
+      <button id="menu-button" class="md:hidden text-white">
+        <i class="fas fa-bars text-xl text-blue-400"></i>
+      </button>
+    </div>
+  </nav>
+
+  <!-- SIDEBAR MÓVIL -->
+  <div id="sidebar" class="sidebar sidebar-hidden fixed top-0 left-0 h-full w-64 bg-black border-r border-white z-50 p-6 md:hidden">
+    <div class="flex justify-between items-center mb-6">
+      <h2 class="text-lg font-bold">Menú</h2>
+      <button id="close-sidebar" class="text-white">
+        <i class="fas fa-times text-xl text-red-400"></i>
+      </button>
+    </div>
+    <nav class="flex flex-col space-y-4">
+      <a href="#inicio" class="hover:underline">Inicio</a>
+      <a href="#habilidades" class="hover:underline">Habilidades</a>
+      <a href="#formacion" class="hover:underline">Formación</a>
+      <a href="#proyectos" class="hover:underline">Proyectos</a>
+      <a href="#contacto" class="hover:underline">Contacto</a>
+    </nav>
+  </div>
+
+  <!-- HERO SECTION -->
+  <section id="inicio" class="min-h-screen flex flex-col justify-center items-center text-center pt-32 relative px-6 z-10">
+    <div class="bg-white bg-opacity-5 border border-white rounded-2xl p-10 shadow-xl backdrop-blur-md">
+      <h2 class="text-4xl font-bold mb-4">Daniel Steve Montaño Arboleda</h2>
+      <p class="mb-2"><i class="fas fa-map-marker-alt text-blue-400 mr-2"></i>Buenaventura, Colombia</p>
+      <p class="mb-2"><i class="fas fa-envelope text-green-400 mr-2"></i>Profesionalgitdsma@gmail.com</p>
+      <p><i class="fas fa-phone-alt text-purple-400 mr-2"></i>3188308916</p>
+    </div>
+  </section>
+
+  <!-- HABILIDADES -->
+<section id="habilidades" class="py-24 px-6 z-10 relative">
+  <div class="max-w-5xl mx-auto">
+    <h2 class="text-3xl font-bold text-center mb-10">Habilidades Técnicas</h2>
+    <div class="grid md:grid-cols-2 gap-6">
+
+      <div class="bg-white bg-opacity-5 border border-white rounded-xl p-6 shadow-md backdrop-blur-md" style="background-image: url('./resorces/danielFblack.jpeg'); background-size: cover; background-position: center bottom;">
+        <h3 class="text-xl font-semibold mb-4">Lenguajes y Frameworks</h3>
+        <ul class="space-y-3">
+          <li><img src="https://img.icons8.com/color/24/javascript--v1.png" alt="JS" class="inline mr-2"> JavaScript, TypeScript</li>
+          <li><img src="https://img.icons8.com/color/24/python--v1.png" alt="Python" class="inline mr-2"> Python</li>
+          <li><img src="https://img.icons8.com/color/24/react-native.png" alt="React" class="inline mr-2"> ReactJS</li>
+          <li><img src="https://img.icons8.com/color/24/vue-js.png" alt="Vue" class="inline mr-2"> Vue.js</li>
+          <li><img src="https://img.icons8.com/color/24/nodejs.png" alt="Node.js" class="inline mr-2"> Node.js, Express</li>
+        </ul>
+      </div>
+
+      <div class="bg-white bg-opacity-5 border border-white rounded-xl p-6 shadow-md backdrop-blur-md" style="background-image: url('./resorces/danielFblack.jpeg'); background-size: cover; background-position: center bottom;">
+        <h3 class="text-xl font-semibold mb-4">Herramientas</h3>
+        <ul class="space-y-3">
+          <li><img src="https://img.icons8.com/color/24/mongodb.png" alt="MongoDB" class="inline mr-2"> MongoDB, PostgreSQL, Firebase</li>
+          <li><img src="https://img.icons8.com/color/24/git.png" alt="Git" class="inline mr-2"> Git, GitHub</li>
+          <li><img src="https://img.icons8.com/color/24/figma--v1.png" alt="Figma" class="inline mr-2"> Figma, figma</li>
+          <li>
+          <li>
+            <img src="./resorces/photo.webp" alt="Photoshop" class="inline mr-2" style="height:24px">
+              Photoshop, Photoshop
+          </li>
+          <li>
+            <img src="./resorces/n8n.webp" alt="Photoshop" class="inline mr-2" style="height:24px">
+              n8n, Automatización,
+          </li>
+
+        </ul>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+
+  <!-- FORMACIÓN -->
+  <section id="formacion" class="py-24 px-6 z-10 relative">
+    <div class="max-w-4xl mx-auto">
+      <h2 class="text-3xl font-bold text-center mb-10">Formación Académica</h2>
+      <div class="space-y-6">
+        <div class="bg-white bg-opacity-5 border border-white rounded-xl p-6 backdrop-blur-md">
+          <p>📌 Ingeniería en Sistemas - Univ. del Pacífico (5 semestres)</p>
+        </div>
+        <div class="bg-white bg-opacity-5 border border-white rounded-xl p-6 backdrop-blur-md">
+          <p>📌 Tecnólogo y Auxiliar en Desarrollo - SENA, PIO</p>
+        </div>
+        <div class="bg-white bg-opacity-5 border border-white rounded-xl p-6 backdrop-blur-md">
+          <p>📌 Técnico en Agencias de Viajes - SENA</p>
+        </div>
+        <div class="bg-white bg-opacity-5 border border-white rounded-xl p-6 backdrop-blur-md">
+          <p>📌 Bachiller - I.E. José María Cabal (2022)</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+<!-- PROYECTOS -->
+<section id="proyectos" class="py-24 px-6 z-10 relative">
+  <div class="max-w-6xl mx-auto">
+    <h2 class="text-3xl font-bold text-center mb-10">Proyectos Destacados</h2>
+    <div class="project-container" style="background-image: url('./resorces/danielFblack.jpeg'); background-size: cover; background-repeat: no-repeat; background-position: center; border-radius: 20px; padding: 1rem;">
+
+      <!-- Proyecto: Crud Laravel MongoDB -->
+      <div class="card" style="background-image: url('./resorces/danielFwhite.jpeg'); background-size: cover; background-position: top; background-repeat: no-repeat;">
+        <a href="https://github.com/Danielsteve18/crud-laravel-mongodb" class="github-icon" target="_blank">
+          <i class="fab fa-github text-2xl"></i>
+        </a>
+        <div class="card-content">
+          <h3>CRUD Laravel + MongoDB</h3>
+          <p>Sistema básico CRUD con Laravel 10 y MongoDB. Ideal para aprender integración NoSQL.</p>
+          <div class="tech-icons mt-2">
+            <img src="https://img.icons8.com/windows/24/ffffff/laravel.png" alt="Laravel">
+            <img src="https://img.icons8.com/color/24/mongodb.png" alt="MongoDB">
+            <img src="https://img.icons8.com/color/24/html-5--v1.png" alt="HTML">
+            <img src="https://img.icons8.com/color/24/css3.png" alt="CSS">
+          </div>
+        </div>
+      </div>
+
+      <!-- Proyecto: Juego Adivina el número JS -->
+      <div class="card">
+        <a href="https://github.com/Danielsteve18/Adivina-el-numero-JS" class="github-icon" target="_blank">
+          <i class="fab fa-github text-2xl"></i>
+        </a>
+        <div class="card-content">
+          <h3>Adivina el Número</h3>
+          <p>Mini juego interactivo en JavaScript puro. Lógica simple, ideal para principiantes.</p>
+          <div class="tech-icons mt-2">
+            <img src="https://img.icons8.com/color/24/javascript.png" alt="JS">
+            <img src="https://img.icons8.com/color/24/html-5--v1.png" alt="HTML">
+            <img src="https://img.icons8.com/color/24/css3.png" alt="CSS">
+          </div>
+        </div>
+      </div>
+
+      <!-- Proyecto: Dashboard Tienda con Tailwind -->
+      <div class="card" style="background-image: url('./resorces/danielFwhite.jpeg'); background-size: contain; background-position: center; background-repeat: no-repeat;">
+        <a href="https://github.com/Danielsteve18/admin-tienda-dash" class="github-icon" target="_blank">
+          <i class="fab fa-github text-2xl"></i>
+        </a>
+        <div class="card-content">
+          <h3>Admin Dashboard Tienda</h3>
+          <p>Dashboard responsive para tienda. Uso de Tailwind y componentes reutilizables.</p>
+          <div class="tech-icons mt-2">
+            <img src="https://img.icons8.com/color/24/tailwindcss.png" alt="Tailwind">
+            <img src="https://img.icons8.com/color/24/html-5--v1.png" alt="HTML">
+            <img src="https://img.icons8.com/color/24/css3.png" alt="CSS">
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+
+
+
+  <!-- FOOTER -->
+  <footer class="text-center py-6 z-10 relative">
+    <p class="text-sm">© 2025 Daniel Steve Montaño Arboleda</p>
+  </footer>
+
+  <script>
+    const menuBtn = document.getElementById('menu-button');
+    const sidebar = document.getElementById('sidebar');
+    const closeBtn = document.getElementById('close-sidebar');
+
+    menuBtn?.addEventListener('click', () => {
+      sidebar.classList.remove('sidebar-hidden');
+    });
+
+    closeBtn?.addEventListener('click', () => {
+      sidebar.classList.add('sidebar-hidden');
+    });
+
+    document.querySelectorAll('#sidebar a').forEach(link => {
+      link.addEventListener('click', () => {
+        sidebar.classList.add('sidebar-hidden');
+      });
+    });
+  </script>
+</body>
+</html>
