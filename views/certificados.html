@@ -1,0 +1,596 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Daniel Steve Montaño Arboleda - Portafolio</title>
+  <link rel="icon" type="image/svg+xml" href="https://www.svgrepo.com/show/325643/briefcase-alt.svg">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <style>
+    body {
+      font-family: 'Inter', sans-serif;
+      scroll-behavior: smooth;
+      background-color: white;
+      color: #f97316;
+    }
+
+    .sidebar {
+      transition: transform 0.3s ease-in-out;
+    }
+
+    .sidebar-hidden {
+      transform: translateX(-100%);
+    }
+
+    @media (max-width: 768px) {
+      #right-bar {
+        width: 48px;
+        background-color: transparent;
+        border-left: none;
+      }
+      #right-bar a {
+        background-color: transparent !important;
+        justify-content: center;
+      }
+      #right-bar a span {
+        display: none !important;
+      }
+    }
+
+    .project-container {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 20px;
+      justify-content: center;
+    }
+
+    .card {
+      position: relative;
+      flex: 1 1 50px;
+      max-width: 320px;
+      height: 260px;
+      border-radius: 20px;
+      overflow: hidden;
+      cursor: pointer;
+      transition: all 0.4s ease;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end;
+      background-color: #fff7ed;
+      color: #f97316;
+      border: 2px solid #f97316;
+    }
+
+    .card:hover {
+      transform: scale(1.05);
+      background-color: #ffeedd;
+    }
+
+    .card-content {
+      position: relative;
+      z-index: 2;
+      padding: 1rem;
+    }
+
+    .card-content h3 {
+      font-size: 1.2rem;
+      font-weight: bold;
+      margin-bottom: 0.5rem;
+    }
+
+    .card-content p {
+      font-size: 0.875rem;
+    }
+
+    .card-content .tech-icons img {
+      display: inline-block;
+      margin-right: 5px;
+      height: 24px;
+    }
+
+    .github-icon {
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      z-index: 2;
+      color: #f97316;
+    }
+
+    nav {
+      margin-top: 10px;
+      border-radius: 20px;
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    }
+
+    nav a:hover {
+      color: white;
+      background-color: #fb923c;
+      border-radius: 10px;
+      padding: 0.25rem 0.5rem;
+      transition: all 0.2s ease;
+    }
+
+    .modal {
+      position: fixed;
+      inset: 0;
+      background-color: rgba(0, 0, 0, 0.8);
+      z-index: 999;
+      display: none;
+      justify-content: center;
+      align-items: center;
+      padding: 1rem;
+    }
+
+    .modal-content {
+      background-color: white;
+      width: 80%;
+      height: 80%;
+      border-radius: 20px;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+    }
+
+    @media (min-width: 768px) {
+      .modal-content {
+        flex-direction: row;
+      }
+    }
+
+    .modal-image {
+      width: 100%;
+      height: 70%;
+      object-fit: cover;
+    }
+
+    @media (min-width: 768px) {
+      .modal-image {
+        width: 70%;
+        height: 100%;
+      }
+    }
+
+    .modal-text {
+      padding: 1rem;
+      color: #f97316;
+      overflow-y: auto;
+      width: 100%;
+    }
+
+    @media (min-width: 768px) {
+      .modal-text {
+        width: 30%;
+      }
+    }
+    .modal-close-button {
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  z-index: 10;
+  background-color: white;
+  border: 2px solid #f97316;
+  color: #f97316;
+  padding: 0.25rem 0.5rem;
+  border-radius: 10px;
+  font-size: 0.875rem;
+  cursor: pointer;
+}
+
+  </style>
+</head>
+<body>
+ <!-- NAVBAR -->
+<nav class="fixed top-4 left-4 right-4 bg-orange-500 bg-opacity-95 text-white z-50 px-4 py-3 rounded-xl">
+  <div class="max-w-7xl mx-auto flex justify-between items-center">
+    <h1 class="text-lg font-bold">Daniel Steve Montaño Arboleda</h1>
+
+    <!-- Menú para pantallas grandes -->
+    <div class="hidden md:flex space-x-6">
+      <a href="../index.html" class="hover:bg-orange-600 px-3 py-1 rounded">Inicio</a>
+      <a href="#formacion" class="hover:bg-orange-600 px-3 py-1 rounded">Sena</a>
+      <a href="#proyectos" class="hover:bg-orange-600 px-3 py-1 rounded">Semestres aprobados</a>
+      <a href="#habilidades" class="hover:bg-orange-600 px-3 py-1 rounded">BootCamps</a>
+      <a href="#inicio" class="hover:bg-orange-600 px-3 py-1 rounded">Bachillerato</a>
+      <a href="https://wa.me/573188308916" class="hover:bg-orange-600 px-3 py-1 rounded">Contacto</a>
+    </div>
+
+    <!-- Botón hamburguesa (visible solo en móvil) -->
+    <button id="menu-button" class="md:hidden text-white">
+      <i class="fas fa-bars text-xl"></i>
+    </button>
+  </div>
+
+  <!-- Menú móvil -->
+  <div id="mobile-menu" class="md:hidden hidden flex-col mt-4 bg-orange-500 px-4 py-3 rounded-lg text-white space-y-2">
+    <a href="../index.html" class="block py-2 px-4 rounded hover:bg-orange-600">Inicio</a>
+    <a href="#inicio" class="block py-2 px-4 rounded hover:bg-orange-600">Bachillerato</a>
+    <a href="#habilidades" class="block py-2 px-4 rounded hover:bg-orange-600">BootCamps</a>
+    <a href="#formacion" class="block py-2 px-4 rounded hover:bg-orange-600">Sena</a>
+    <a href="#proyectos" class="block py-2 px-4 rounded hover:bg-orange-600">Semestres aprobados</a>
+    <a href="https://wa.me/573188308916" class="block py-2 px-4 rounded hover:bg-orange-600">Contacto</a>
+  </div>
+</nav>
+
+<!-- SCRIPT para activar menú móvil -->
+<script>
+  document.getElementById("menu-button").addEventListener("click", function () {
+    const mobileMenu = document.getElementById("mobile-menu");
+    mobileMenu.classList.toggle("hidden");
+  });
+</script>
+
+
+
+
+  <!-- Certificado Sena-->
+  <section id="proyectos" class="top-4 py-24 px-6 z-10 relative">
+    <div class="max-w-6xl mx-auto">
+      <h2 class="text-3xl font-bold text-center mb-10 text-orange-500">Certificados Sena</h2>
+      <div class="project-container bg-orange-100 rounded-2xl p-4">
+
+        <!--Card (ADSO)-->
+        <div class="card" style="background-image: url('../resorces/danielparque1.jpeg'); background-size: contain; background-position: center; background-repeat: no-repeat;">
+          <a href="https://certificados.sena.edu.co/CertificadoDigital/com.sena.consultacer" 
+            target="_blank" 
+            class="absolute top-2 right-2 z-10" 
+            title="Selecciona 'Tarjeta de Identidad' e ingresa el número 1111759613">
+            <img src="../resorces/logosena.png" alt="Logo SENA" class="h-6 w-6">
+         </a>
+        <div class="card-content">
+            <h3>Futuro (ADSO)</h3>
+            <p>Certificación académica tecnologa, en Analis y Desarrollo de Software.</p>
+            <div class="tech-icons mt-2">
+              <img src="../resorces/logosena.png" alt="Logo SENA" class="h-6">
+            </div>
+            <button onclick="openModal('modal1')" class="mt-2 px-4 py-1 bg-orange-500 text-white rounded hover:bg-orange-600">Show More</button>
+          </div>
+        </div>
+
+        <!--Card ( fundamentos del Sistema de Gestión de Seguridad y Salud en el Trabajo Constancia.)-->
+        <div class="card" style="background-image: url('../resorces/danielparque2.jpeg'); background-size: contain; background-position: center; background-repeat: no-repeat;">
+          <a href="https://certificados.sena.edu.co/CertificadoDigital/com.sena.consultacer" 
+            target="_blank" 
+            class="absolute top-2 right-2 z-10" 
+            title="Selecciona 'Tarjeta de Identidad' e ingresa el número 1111759613">
+            <img src="../resorces/logosena.png" alt="Logo SENA" class="h-6 w-6">
+         </a>
+        <div class="card-content">
+            <h3>Certificado en Fundamentos del SG-SST</h3>
+            <p>Certificado de fundamentos del Sistema de Gestión de Seguridad y Salud en el Trabajo.</p>
+            <div class="tech-icons mt-2">
+              <img src="../resorces/logosena.png" alt="Logo SENA" class="h-6">
+            </div>
+            <button onclick="openModal('modal2')" class="mt-2 px-4 py-1 bg-orange-500 text-white rounded hover:bg-orange-600">Show More</button>
+          </div>
+        </div>
+
+        <!--Card ( fundamentos del Sistema de Gestión de Seguridad y Salud en el Trabajo constancia.)-->
+        <div class="card" style="background-image: url('../resorces/danielparque1.jpeg'); background-size: contain; background-position: center; background-repeat: no-repeat;">
+          <a href="https://certificados.sena.edu.co/CertificadoDigital/com.sena.consultacer" 
+            target="_blank" 
+            class="absolute top-2 right-2 z-10" 
+            title="Selecciona 'Tarjeta de Identidad' e ingresa el número 1111759613">
+            <img src="../resorces/logosena.png" alt="Logo SENA" class="h-6 w-6">
+         </a>
+        <div class="card-content">
+            <h3>Constancia de etapa productiva (empresa)</h3>
+            <p>Constancia de aprobación de etapa práctica. Documento expedido por la empresa donde se desarrolló la formación.</p>
+            <div class="tech-icons mt-2">
+              <img src="../resorces/logosena.png" alt="Logo SENA" class="h-6">
+            </div>
+            <button onclick="openModal('modal3')" class="mt-2 px-4 py-1 bg-orange-500 text-white rounded hover:bg-orange-600">Show More</button>
+          </div>
+        </div>
+        
+         <!--Card ( Emprendimiento de Unidades Productivas certificado.)-->
+        <div class="card" style="background-image: url('../resorces/danielparque2.jpeg'); background-size: contain; background-position: center; background-repeat: no-repeat;">
+          <a href="https://certificados.sena.edu.co/CertificadoDigital/com.sena.consultacer" 
+            target="_blank" 
+            class="absolute top-2 right-2 z-10" 
+            title="Selecciona 'Tarjeta de Identidad' e ingresa el número 1111759613">
+            <img src="../resorces/logosena.png" alt="Logo SENA" class="h-6 w-6">
+         </a>
+        <div class="card-content">
+            <h3>Emprendimiento de Unidades Productivas</h3>
+            <p>Formación enfocada en el desarrollo de ideas de negocio sostenibles y viables, fortaleciendo competencias emprendedoras.</p>
+            <div class="tech-icons mt-2">
+              <img src="../resorces/logosena.png" alt="Logo SENA" class="h-6">
+            </div>
+            <button onclick="openModal('modal4')" class="mt-2 px-4 py-1 bg-orange-500 text-white rounded hover:bg-orange-600">Show More</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+      <!-- MODALES sena -->
+    <!-- Modal (ADSO) -->
+  <div id="modal1" class="modal">
+    <div class="modal-content">
+      <!-- Texto -->
+      <div class="modal-text flex flex-col justify-between">
+        <button onclick="closeModal('modal1')" class="modal-close-button">Cerrar</button>
+        <div>
+          <h2 class="text-2xl font-bold mb-4">Tecnologo (ADSO)</h2>
+          <p class="text-base leading-relaxed">Certificación académica como Tecnólogo en Análisis y Desarrollo de Software, obtenida tras completar satisfactoriamente un proceso de formación integral que abarca competencias en programación, diseño de bases de datos, análisis de requerimientos, metodologías ágiles, y desarrollo de aplicaciones web y móviles, demostrando habilidades técnicas y teóricas para desempeñarse en el sector de las tecnologías de la información.</p>
+        </div>
+      </div>
+
+      <!-- Imagen -->
+      <img src="../resorces/danielFwhite.jpeg" alt="Imagen Bachiller" class="modal-image object-cover object-top">
+    </div>
+  </div>
+
+  <!-- Modal (saludTrabajoCertificado) -->
+  <div id="modal2" class="modal">
+    <div class="modal-content">
+      <!-- Texto -->
+      <div class="modal-text flex flex-col justify-between">
+        <button onclick="closeModal('modal2')" class="modal-close-button">Cerrar</button>
+        <div>
+          <h2 class="text-2xl font-bold mb-4">Certificado en Fundamentos del SG-SST</h2>
+          <p class="text-base leading-relaxed">Este certificado avala que Daniel Steve Montaño Arboleda completó satisfactoriamente una capacitación sobre los fundamentos del Sistema de Gestión de Seguridad y Salud en el Trabajo (SG-SST), de acuerdo con la normatividad colombiana vigente. Esta formación tiene como objetivo prevenir accidentes y enfermedades laborales, promoviendo un ambiente laboral seguro y saludable.</p>
+        </div>
+      </div>
+
+      <!-- Imagen -->
+       
+      <img src="../resorces/certificaciones/saludeneltrabajo.jpg" alt="Imagen Bachiller" class="modal-image">
+    </div>
+  </div>
+  <!-- Modal (saludTrabajoConstancia) -->
+  <div id="modal3" class="modal">
+    <div class="modal-content">
+      <!-- Texto -->
+      <div class="modal-text flex flex-col justify-between">
+        <button onclick="closeModal('modal3')" class="modal-close-button">Cerrar</button>
+        <div>
+          <h2 class="text-2xl font-bold mb-4">Constancia de etapa productiva (empresa)</h2>
+          <p class="text-base leading-relaxed">Este documento es una constancia oficial emitida por la empresa donde el aprendiz realizó su etapa productiva o práctica profesional. En él se certifica que Daniel Steve Montaño Arboleda cumplió con las funciones asignadas, desarrolló las competencias laborales requeridas por el programa de formación y mantuvo un desempeño satisfactorio. Este respaldo es clave para completar el proceso formativo del SENA en programas técnicos o tecnológicos.</p>
+        </div>
+      </div>
+
+      <!-- Imagen -->
+       
+      <img src="../resorces/certificaciones/saludeneltrabajoconstancia.jpg" alt="Imagen Bachiller" class="modal-image">
+    </div>
+  </div>
+
+  <!-- Modal (Emprendimiento de Unidades Productivas certificado) -->
+  <div id="modal4" class="modal">
+    <div class="modal-content">
+      <!-- Texto -->
+      <div class="modal-text flex flex-col justify-between">
+        <button onclick="closeModal('modal4')" class="modal-close-button">Cerrar</button>
+        <div>
+          <h2 class="text-2xl font-bold mb-4">Emprendimiento de Unidades Productivas</h2>
+          <p class="text-base leading-relaxed">Certificación en Emprendimiento de Unidades Productivas, donde se fortalecieron habilidades para identificar oportunidades de negocio, formular modelos productivos viables y aplicar herramientas administrativas esenciales para poner en marcha proyectos sostenibles y de impacto social y económico. Esta formación impulsa la capacidad de autogestión y liderazgo en el contexto empresarial.</p>
+        </div>
+      </div>
+
+      <!-- Imagen -->
+       
+      <img src="../resorces/certificaciones/unidadesProductivacertificado.jpg" alt="Imagen Bachiller" class="modal-image">
+    </div>
+  </div>
+
+  <!-- Certificado Sena-->
+  <section id="proyectos" class="py-24 px-6 z-10 relative">
+    <div class="max-w-6xl mx-auto">
+      <h2 class="text-3xl font-bold text-center mb-10 text-orange-500">Certificados Sena</h2>
+      <div class="project-container bg-orange-100 rounded-2xl p-4">     
+
+      <!--Card ( Emprendimiento de Unidades Productivas constancia.)-->
+        <div class="card" style="background-image: url('../resorces/danielparque1.jpeg'); background-size: contain; background-position: center; background-repeat: no-repeat;">
+          <a href="https://certificados.sena.edu.co/CertificadoDigital/com.sena.consultacer" 
+            target="_blank" 
+            class="absolute top-2 right-2 z-10" 
+            title="Selecciona 'Tarjeta de Identidad' e ingresa el número 1111759613">
+            <img src="../resorces/logosena.png" alt="Logo SENA" class="h-6 w-6">
+         </a>
+        <div class="card-content">
+            <h3>Emprendimiento de Unidades Productivas (constancia)</h3>
+            <div class="tech-icons mt-2">
+              <img src="../resorces/logosena.png" alt="Logo SENA" class="h-6">
+            </div>
+            <button onclick="openModal('modal5')" class="mt-2 px-4 py-1 bg-orange-500 text-white rounded hover:bg-orange-600">Show More</button>
+          </div>
+        </div>
+
+        <!--Card ( Cualidades Físicas en el Entrenamiento Deportivo certificado.)-->
+        <div class="card" style="background-image: url('../resorces/danielparque2.jpeg'); background-size: contain; background-position: center; background-repeat: no-repeat;">
+          <a href="https://certificados.sena.edu.co/CertificadoDigital/com.sena.consultacer" 
+            target="_blank" 
+            class="absolute top-2 right-2 z-10" 
+            title="Selecciona 'Tarjeta de Identidad' e ingresa el número 1111759613">
+            <img src="../resorces/logosena.png" alt="Logo SENA" class="h-6 w-6">
+         </a>
+        <div class="card-content">
+            <h3>Cualidades Físicas en el Entrenamiento Deportivo</h3>
+            <p>Capacitación en principios de acondicionamiento físico aplicados al entrenamiento deportivo personalizado.</p>
+
+            <div class="tech-icons mt-2">
+              <img src="../resorces/logosena.png" alt="Logo SENA" class="h-6">
+            </div>
+            <button onclick="openModal('modal6')" class="mt-2 px-4 py-1 bg-orange-500 text-white rounded hover:bg-orange-600">Show More</button>
+          </div>
+        </div>
+
+        <!--Card ( Cualidades Físicas en el Entrenamiento Deportivo constancia.)-->
+        <div class="card" style="background-image: url('../resorces/danielparque1.jpeg'); background-size: contain; background-position: center; background-repeat: no-repeat;">
+          <a href="https://certificados.sena.edu.co/CertificadoDigital/com.sena.consultacer" 
+            target="_blank" 
+            class="absolute top-2 right-2 z-10" 
+            title="Selecciona 'Tarjeta de Identidad' e ingresa el número 1111759613">
+            <img src="../resorces/logosena.png" alt="Logo SENA" class="h-6 w-6">
+         </a>
+        <div class="card-content">
+            <h3> Cualidades Físicas en el Entrenamiento DeportivoConstancia</h3>
+
+            <div class="tech-icons mt-2">
+              <img src="../resorces/logosena.png" alt="Logo SENA" class="h-6">
+            </div>
+            <button onclick="openModal('modal7')" class="mt-2 px-4 py-1 bg-orange-500 text-white rounded hover:bg-orange-600">Show More</button>
+          </div>
+        </div>
+
+        <!--Card ( Certificado: Feria de Emprendimiento Empresarial.)-->
+        <div class="card" style="background-image: url('../resorces/danielparque2.jpeg'); background-size: contain; background-position: center; background-repeat: no-repeat;">
+          <a href="https://certificados.sena.edu.co/CertificadoDigital/com.sena.consultacer" 
+            target="_blank" 
+            class="absolute top-2 right-2 z-10" 
+            title="Selecciona 'Tarjeta de Identidad' e ingresa el número 1111759613">
+            <img src="../resorces/logosena.png" alt="Logo SENA" class="h-6 w-6">
+         </a>
+        <div class="card-content">
+            <h3> Certificado: Feria de Emprendimiento Empresarial</h3>
+            
+            <div class="tech-icons mt-2">
+              <img src="../resorces/logosena.png" alt="Logo SENA" class="h-6">
+            </div>
+            <button onclick="openModal('modal8')" class="mt-2 px-4 py-1 bg-orange-500 text-white rounded hover:bg-orange-600">Show More</button>
+          </div>
+        </div>
+      
+
+     
+      
+
+
+
+      </div>
+
+    </div>
+  </section>
+ 
+
+  <!-- Modal (Emprendimiento de Unidades Productivas constancia) -->
+  <div id="modal5" class="modal">
+    <div class="modal-content">
+      <!-- Texto -->
+      <div class="modal-text flex flex-col justify-between">
+        <button onclick="closeModal('modal5')" class="modal-close-button">Cerrar</button>
+        <div>
+          <h2 class="text-2xl font-bold mb-4">Emprendimiento de Unidades Productivas Constancia</h2>
+          <p class="text-base leading-relaxed">Esta constancia acredita la participación activa en el proceso formativo, con contenidos teórico-prácticos orientados al fortalecimiento de competencias específicas. Aunque no representa un título o certificado oficial, da fe del compromiso y cumplimiento en las actividades programadas durante la formación recibida.</p>
+        </div>
+      </div>
+
+      <!-- Imagen -->
+       
+      <img src="../resorces/certificaciones/unidadesproductivaCostancia.jpg" alt="Imagen Bachiller" class="modal-image">
+    </div>
+  </div>
+
+  <!-- Modal (Cualidades Físicas en el Entrenamiento Deportivo certificado) -->
+  <div id="modal6" class="modal">
+    <div class="modal-content">
+      <!-- Texto -->
+      <div class="modal-text flex flex-col justify-between">
+        <button onclick="closeModal('modal6')" class="modal-close-button">Cerrar</button>
+        <div>
+          <h2 class="text-2xl font-bold mb-4">Emprendimiento de Unidades Productivas </h2>
+          <p class="text-base leading-relaxed">Constancia en Cualidades Físicas en el Entrenamiento Deportivo, que avala la formación en fundamentos del acondicionamiento físico, incluyendo fuerza, resistencia, velocidad, flexibilidad y coordinación. Se abordaron metodologías para su evaluación y mejora dentro de programas de entrenamiento, orientados al rendimiento y la salud física integral.</p>
+        </div>
+      </div>
+
+      <!-- Imagen -->
+       
+      <img src="../resorces/certificaciones/cualidadesFisicasCertificado.jpg" alt="Imagen Bachiller" class="modal-image">
+    </div>
+  </div>
+  
+  <!-- Modal (Cualidades Físicas en el Entrenamiento Deportivo constancia) -->
+  <div id="modal7" class="modal">
+    <div class="modal-content">
+      <!-- Texto -->
+      <div class="modal-text flex flex-col justify-between">
+        <button onclick="closeModal('modal7')" class="modal-close-button">Cerrar</button>
+        <div>
+          <h2 class="text-2xl font-bold mb-4">Cualidades Físicas en el Entrenamiento Deportivo Constancia</h2>
+          <p class="text-base leading-relaxed">Constancia en Cualidades Físicas en el Entrenamiento Deportivo, que avala la formación en fundamentos del acondicionamiento físico, incluyendo fuerza, resistencia, velocidad, flexibilidad y coordinación. Se abordaron metodologías para su evaluación y mejora dentro de programas de entrenamiento, orientados al rendimiento y la salud física integral.</p>
+        </div>
+      </div>
+
+      <!-- Imagen -->
+       
+      <img src="../resorces/certificaciones/Cualidadesfisicasconstancia.jpg" alt="Imagen Bachiller" class="modal-image">
+    </div>
+  </div>
+
+  <!-- Modal (Cualidades Físicas en el Entrenamiento Deportivo constancia) -->
+  <div id="modal8" class="modal">
+    <div class="modal-content">
+      <!-- Texto -->
+      <div class="modal-text flex flex-col justify-between">
+        <button onclick="closeModal('modal8')" class="modal-close-button">Cerrar</button>
+        <div>
+          <h2 class="text-2xl font-bold mb-4">Certificado: Feria de Emprendimiento Empresarial</h2>
+          <p class="text-base leading-relaxed">Este certificado reconoce la participación destacada en la Feria de Emprendimiento Empresarial, evento enfocado en la promoción de ideas innovadoras, desarrollo de unidades productivas y fomento del espíritu empresarial. La intervención activa en esta feria demuestra iniciativa, liderazgo y capacidad para presentar propuestas viables en contextos reales del mercado.</p>
+        </div>
+      </div>
+
+      <!-- Imagen -->
+       
+      <img src="../resorces/certificaciones/feriaemprendimiento.jpg" alt="Imagen Bachiller" class="modal-image">
+    </div>
+  </div>
+
+  <!-- Colegio -->
+  <section id="proyectos" class="py-24 px-6 z-10 relative">
+    <div class="max-w-6xl mx-auto">
+      <h2 class="text-3xl font-bold text-center mb-10 text-orange-500">Bachiller Académico</h2>
+      <div class="project-container bg-orange-100 rounded-2xl p-4">
+        <div class="card">
+          <a href="https://github.com/Danielsteve18/crud-laravel-mongodb" class="github-icon" target="_blank">
+            <i class="fab fa-github text-2xl"></i>
+          </a>
+          <div class="card-content">
+            <h3>Agente de viajes</h3>
+            <p>Capacitado para diseñar rutas, asistir clientes y organizar itinerarios.</p>
+            <div class="tech-icons mt-2">
+              <img src="https://img.icons8.com/color/24/css3.png" alt="CSS">
+            </div>
+            <button onclick="openModal('moda')" class="mt-2 px-4 py-1 bg-orange-500 text-white rounded hover:bg-orange-600">Show More</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="text-center py-6 z-10 relative bg-orange-500 text-white rounded-t-3xl mt-10">
+    <p class="text-sm">© 2025 Daniel Steve Montaño Arboleda</p>
+  </footer>
+
+  
+
+  <!-- MODAL fuera de la tarjeta -->
+  <div id="modal2" class="modal">
+    <div class="modal-content">
+      <!-- Texto -->
+      <div class="modal-text flex flex-col justify-between">
+        <button onclick="closeModal('modal2')" class="modal-close-button">Cerrar</button>
+        <div>
+          <h2 class="text-2xl font-bold mb-4">Bachiller académico</h2>
+          <p class="text-base leading-relaxed">Logro educativo con énfasis en ciencias y competencias básicas para educación superior o técnica.</p>
+        </div>
+        <button onclick="closeModal('modal2')" class="mt-4 self-end text-sm text-orange-500 underline">Cerrar</button>
+      </div>
+
+      <!-- Imagen -->
+      <img src="./resorces/danielFwhite.jpeg" alt="Imagen Bachiller" class="modal-image">
+    </div>
+  </div>
+
+  <script>
+    function openModal(id) {
+      document.getElementById(id).style.display = 'flex';
+    }
+    function closeModal(id) {
+      document.getElementById(id).style.display = 'none';
+    }
+  </script>
+
+</body>
+</html>
